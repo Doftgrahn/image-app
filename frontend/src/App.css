@@ -1,23 +1,233 @@
 .App {
-  text-align: center;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow: hidden;
+}
+
+h1 {
+    color: white;
+    padding: 50px;
 }
 
 .App-image {
-  height: 300px;
-  border-radius: 50%;
+    height: 300px;
+    border-radius: 50%;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: linear-gradient(140deg, #333a4a, #0f1a33);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    flex: 1 50%;
+    position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.name-input {
+    font-weight: bold;
+    transition: 200ms;
+    background: white;
+    border: none;
+    /* border-radius: 5px; */
+    color: #ff8552;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: inherit;
+    font-weight: 600;
+    outline: none;
+    padding: 1rem 50px;
+    transition: all 0.3s;
+}
+
+.name-input::placeholder {
+    color: white;
+}
+
+button {
+    /* padding: 10p 0; */
+    background: linear-gradient(45deg, #ff8552, #b95024);
+    color: white;
+    border: 0;
+    cursor: pointer;
+    padding: 1rem 100px;
+
+    border: 2px solid gray;
+    color: white;
+    border: 0;
+    font-size: 20px;
+    /* border-radius: 8px; */
+    /* font-size: 20px; */
+    font-weight: bold;
+}
+.toggle-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+}
+
+.gallery {
+    width: 50%;
+    margin-right: -50%;
+    transition: 200ms;
+    background: #797c84;
+    height: 100vh;
+    position: relative;
+    padding: 2rem;
+    transition: margin-right 0.4s ease;
+    overflow: auto;
+}
+.active {
+    margin-right: 0;
+    transition: margin-right 0.4s ease;
+}
+@media screen and (max-width: 800px) {
+    .active {
+        width: 100%;
+        position: absolute;
+    }
+}
+
+.image_wrapper {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+    width: 100%;
+}
+.image {
+    position: relative;
+}
+.image::before {
+    content: '';
+    width: 100%;
+    padding-bottom: 100%;
+    display: block;
+}
+img {
+    max-width: 100%;
+    position: absolute;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+li {
+    background: rgba(182, 183, 183, 0.5);
+}
+li h3 {
+    padding: 0.5rem;
+}
+
+.upload {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+
+.upload + label {
+    background: #ff8552;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: inherit;
+    font-weight: 600;
+    outline: none;
+    padding: 1rem 50px;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+}
+
+.btn {
+    background-color: #99c793;
+    overflow: hidden;
+}
+.btn::before {
+    color: #fff;
+    content: '';
+    font-family: 'Font Awesome 5 Pro';
+    font-size: 100%;
+    height: 100%;
+    right: 130%;
+    line-height: 3.3;
+    position: absolute;
+    top: 0px;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    text-decoration: underline;
+    transform: scale(1.05);
+}
+
+.btn::before {
+    right: 75%;
+}
+
+.spinner {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner span {
+    border: 16px solid #282c34;
+    border-radius: 50%;
+    border-top: 16px solid #ff8552;
+    border-bottom: 16px solid #ff8552;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes width {
+    0% {
+        flex: 1 0%;
+    }
+    50% {
+        flex: 1 10%;
+    }
+    100% {
+        flex: 1 20%;
+    }
+}
+
+.error_messages {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
 }

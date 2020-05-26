@@ -1,24 +1,33 @@
-const express = require("express");
-const imageRouter = require("./routes/imageRoutes");
+const path = require('path');
+const express = require('express');
+const imageRouter = require('./routes/imageRoutes');
 
 // Create app
 const app = express();
 
+app.use(express.static(`${__dirname}/../frontend/build/`));
+
 // Body parser - middleware that modifies incoming request data into json
-app.use(express.json({ limit: "10kb" }));
+app.use(express.json());
+
+app.use((_req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    res.header('Access-Control-Allow-Methods", "*');
+    next();
+});
 
 // Routes
-app.use("/images", imageRouter);
+app.use('/images', imageRouter);
 
 // Serving static files
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 // Catching uncaught routes
-app.all("*", (req, res, next) => {
-  return res.status(404).json({
-    status: "fail",
-    message: `Cannot find ${req.originalUrl} on this server!`,
-  });
+app.get('*', function (_req, res) {
+    res.sendFile('index.html', {
+        root: path.join(__dirname, '../frontend/build/'),
+    });
 });
 
 module.exports = app;

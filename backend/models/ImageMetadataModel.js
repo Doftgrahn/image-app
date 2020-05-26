@@ -1,17 +1,17 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const imageMetadataSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
+    {
+        name: {
+            type: String,
+        },
+        path: {
+            type: String,
+        },
     },
-    path: {
-      type: String,
-    },
-  },
-  { collection: "imageMetadata" }
+    { collection: 'imageMetadata' }
 );
 
-const ImageMetadata = mongoose.model("ImageMetadata", imageMetadataSchema);
+const ImageMetadata = mongoose.model('ImageMetadata', imageMetadataSchema);
 
 module.exports = ImageMetadata;
