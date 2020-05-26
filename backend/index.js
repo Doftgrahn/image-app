@@ -17,7 +17,7 @@ mongoose.connect(
     }
 );
 
-// Run the server
+// Run the server fast!
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}...`);
 });
