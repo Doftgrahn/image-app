@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import ShowCurrentImages from './components/showCurrentImages';
+const API_ROOT_URL = process.env.API_ROOT_URL || 'http://localhost:3002';
 
 const App = () => {
     const [file, setFile] = useState(null);
@@ -13,20 +14,25 @@ const App = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
 
     useEffect(() => {
-        setIsLoading(true);
-        fetch('/images')
-            .then((data) => data.json())
-            .then((result) => {
-                setImages(result.data);
+        const fetchImages = async () => {
+            setIsLoading(true);
+            try {
+                const req = await fetch(`${API_ROOT_URL}/images`);
+                const res = await req.json();
+                setImages(res.data);
                 setIsLoading(false);
                 setSuccess(false);
-            })
-            .catch((e) => {
+            } catch (e) {
                 setFileError(e.status);
-            });
+            }
+        };
+        fetchImages();
     }, []);
 
-    const fileHandler = (e) => setFile(e.target.files[0]);
+    const fileHandler = (e) => {
+        setFileError('');
+        setFile(e.target.files[0]);
+    };
 
     const uploadImage = async (e) => {
         e.preventDefault();
@@ -39,7 +45,7 @@ const App = () => {
         formData.append('photo', file, name);
 
         try {
-            const req = await fetch('/images', {
+            const req = await fetch(`${API_ROOT_URL}/images`, {
                 method: 'POST',
                 body: formData,
             });
@@ -47,6 +53,7 @@ const App = () => {
             if (res.status === 'fail') {
                 setFile(null);
                 setSuccess(false);
+                setName('');
                 return setFileError(
                     'Fel filtyp, accepterar bara jpeg och png! :D'
                 );
@@ -73,16 +80,18 @@ const App = () => {
 
     return (
         <div className='App'>
-            <section className='App-header'>
+            <section className='App-container'>
                 {!!images.length && (
                     <button className='toggle-btn' onClick={toggleSideMenu}>
-                        {!toggleMenu ? 'Galleri' : 'Stäng'}
+                        {!toggleMenu
+                            ? images.length && `${images.length} Bild/er`
+                            : 'Stäng'}
                     </button>
                 )}
                 <form onSubmit={uploadImage}>
                     {!file && (
                         <div className='uppload'>
-                            <h1>Image Uploading App</h1>
+                            <h1>Ladda upp dina fantastiska bilder!</h1>
                             <input
                                 autoFocus
                                 className='upload'
@@ -98,7 +107,7 @@ const App = () => {
                     )}
                     {file && (
                         <>
-                            <label htmlFor='name' className='name'>
+                            <label htmlFor='name' className='name-label'>
                                 Skriv vad bilden skall ha för namn!
                             </label>
                             <input

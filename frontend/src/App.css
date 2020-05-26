@@ -1,3 +1,12 @@
+:root {
+    --main-bg-color: linear-gradient(140deg, #333a4a, #0f1a33);
+    --main-txt-color: white;
+    --main-input-color: #ff8552;
+    --main-btn-color: linear-gradient(45deg, #ff8552, #b95024);
+    --main-list-bg: rgba(182, 183, 183, 0.5);
+    --main-ul-bg: #797c84;
+}
+
 .App {
     text-align: center;
     display: flex;
@@ -7,24 +16,19 @@
 }
 
 h1 {
-    color: white;
+    color: var(--main-txt-color);
     padding: 50px;
 }
 
-.App-image {
-    height: 300px;
-    border-radius: 50%;
-}
-
-.App-header {
-    background-color: linear-gradient(140deg, #333a4a, #0f1a33);
+.App-container {
+    background-color: var(--main-bg-color);
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     font-size: calc(10px + 2vmin);
-    color: white;
+    color: var(--main-txt-color);
     flex: 1 50%;
     position: relative;
 }
@@ -34,7 +38,29 @@ form {
     flex-direction: column;
 }
 
-.name {
+.upload {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+
+.upload + label {
+    background: var(--main-btn-color);
+    border: none;
+    color: var(--main-txt-color);
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: inherit;
+    font-weight: 600;
+    outline: none;
+    padding: 1rem 50px;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+}
+
+.name-label {
     margin-bottom: 20px;
     padding: 0 10px;
 }
@@ -42,10 +68,9 @@ form {
 .name-input {
     font-weight: bold;
     transition: 200ms;
-    background: white;
+    background: var(--main-txt-color);
     border: none;
-    /* border-radius: 5px; */
-    color: #ff8552;
+    color: var(--main-input-color);
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
     font-size: inherit;
@@ -56,37 +81,39 @@ form {
 }
 
 .name-input::placeholder {
-    color: white;
+    color: var(--main-txt-color);
 }
 
 button {
-    /* padding: 10p 0; */
-    background: linear-gradient(45deg, #ff8552, #b95024);
-    color: white;
+    background: var(--main-btn-color);
+    color: var(--main-txt-color);
     border: 0;
     cursor: pointer;
     padding: 1rem 100px;
-
-    border: 2px solid gray;
-    color: white;
     border: 0;
+    color: var(--main-txt-color);
     font-size: 20px;
-    /* border-radius: 8px; */
-    /* font-size: 20px; */
     font-weight: bold;
 }
+
 .toggle-btn {
     position: absolute;
     top: 0;
     right: 0;
     display: block;
 }
+@media screen and (max-width: 800px) {
+    .toggle-btn {
+        z-index: 3;
+        padding: 5px;
+    }
+}
 
 .gallery {
     width: 50%;
     margin-right: -50%;
     transition: 200ms;
-    background: #797c84;
+    background: var(--main-ul-bg);
     height: 100vh;
     position: relative;
     padding: 2rem;
@@ -97,7 +124,11 @@ button {
     margin-right: 0;
     transition: margin-right 0.4s ease;
 }
+
 @media screen and (max-width: 800px) {
+    .gallery {
+        transition: none;
+    }
     .active {
         width: 100%;
         position: absolute;
@@ -131,58 +162,14 @@ img {
 }
 
 li {
-    background: rgba(182, 183, 183, 0.5);
+    background: var(--main-list-bg);
 }
 li h3 {
     padding: 0.5rem;
 }
 
-.upload {
-    height: 0;
-    overflow: hidden;
-    width: 0;
-}
-
-.upload + label {
-    background: #ff8552;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-family: 'Poppins', sans-serif;
-    font-size: inherit;
-    font-weight: 600;
-    outline: none;
-    padding: 1rem 50px;
-    position: relative;
-    transition: all 0.3s;
-    vertical-align: middle;
-}
-
-.btn {
-    background-color: #99c793;
-    overflow: hidden;
-}
-.btn::before {
-    color: #fff;
-    content: '';
-    font-family: 'Font Awesome 5 Pro';
-    font-size: 100%;
-    height: 100%;
-    right: 130%;
-    line-height: 3.3;
-    position: absolute;
-    top: 0px;
-    transition: all 0.3s;
-}
-
 .btn:hover {
-    text-decoration: underline;
     transform: scale(1.05);
-}
-
-.btn::before {
-    right: 75%;
 }
 
 .spinner {
@@ -195,10 +182,10 @@ li h3 {
 }
 
 .spinner span {
-    border: 16px solid #282c34;
+    border: 16px solid var(--main-bg-color);
     border-radius: 50%;
-    border-top: 16px solid #ff8552;
-    border-bottom: 16px solid #ff8552;
+    border-top: 16px solid var(--main-btn-color);
+    border-bottom: 16px var(--main-btn-color);
     width: 120px;
     height: 120px;
     -webkit-animation: spin 2s linear infinite;

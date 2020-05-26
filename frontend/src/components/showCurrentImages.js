@@ -5,7 +5,7 @@ const ShowCurrentImages = ({ images }) => {
     const renderImages = images.map((x, i) => (
         <li key={x._id ? x._id : i}>
             <div className='image'>
-                <img src={`${API_ROOT_URL}/${x.path}`} alt={x.name} />
+                <img src={`${API_ROOT_URL}${x.path}`} alt={x.name} />
             </div>
 
             <h3>{x.name}</h3>

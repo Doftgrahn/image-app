@@ -42,6 +42,7 @@ exports.getAllImages = async (_req, res, _next) => {
 exports.uploadImage = upload.single('photo');
 
 exports.createImageMetadata = async (req, res, _next) => {
+    // return error if filetype validation fails
     if (!req.file) {
         return res.status(422).json({
             status: 'fail',
@@ -52,12 +53,7 @@ exports.createImageMetadata = async (req, res, _next) => {
     sharp(req.file.path)
         .resize(400, 400)
         .toBuffer((_err, buffer) => {
-            fs.writeFile(req.file.path, buffer, (error, sharp) => {
-                if (error) {
-                    console.log(error);
-                }
-                console.log(sharp);
-            });
+            fs.writeFile(req.file.path, buffer, (error, sharp) => {});
         });
 
     const doc = await ImageMetadata.create({
@@ -65,7 +61,7 @@ exports.createImageMetadata = async (req, res, _next) => {
         path: `/img/${req.file.filename}`,
     });
 
-    //Rather could not create on db
+    // return error if document could not be saved on database
     if (!doc) {
         return res.status(400).json({
             status: 'fail',
